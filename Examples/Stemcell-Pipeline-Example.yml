@@ -3,15 +3,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: git@github.com:DaxterM/StemcellCI.git
-    private_key: {{git_private_key}}
-
-- name: stemcell-builder
-  type: git
-  source:
-    branch: master
-    uri: git@github.com:DaxterM/bosh-windows-stemcell-builder.git
-    private_key: {{git_private_key}}
+    uri: https://github.com/datianshi/StemcellCI
 
 - name: vmx-with-windows-update-version
   type: semver
@@ -33,7 +25,7 @@ resources:
     access_key_id: {{s3_access_key}}
     secret_access_key: {{s3_secret_key}}
 
-    
+
 - name: vsphere-stemcell-pre-release-candidate
   type: s3
   source:
@@ -42,8 +34,8 @@ resources:
    endpoint: {{s3_endpoint}}
    disable_ssl: true
    access_key_id: {{s3_access_key}}
-   secret_access_key: {{s3_secret_key}}     
- 
+   secret_access_key: {{s3_secret_key}}
+
 - name: vsphere-stemcell-release-candidate
   type: s3
   source:
@@ -53,14 +45,13 @@ resources:
     access_key_id: {{s3_access_key}}
     secret_access_key: {{s3_secret_key}}
     endpoint: {{s3_endpoint}}
-    
+
 jobs:
 - name: create-vsphere-add-updates
   serial: true
   plan:
   - aggregate:
     - get: ci
-    - get: stemcell-builder
     - get: vmx-version
       resource: vmx-with-windows-update-version
   - task: add-updates
@@ -87,7 +78,6 @@ jobs:
   plan:
   - aggregate:
     - get: ci
-    - get: stemcell-builder
     - get: version
       resource: stemcells-pre-release-candidate-version
     - get: vmx-version
@@ -113,13 +103,12 @@ jobs:
   - put: stemcells-pre-release-candidate-version
     params: {bump: minor}
 
-    
+
 - name: test-vsphere-stemcell
   serial: true
   plan:
   - aggregate:
     - get: ci
-    - get: stemcell-builder    
     - get: bosh-windows-stemcell
       resource: vsphere-stemcell-pre-release-candidate
       trigger: true
