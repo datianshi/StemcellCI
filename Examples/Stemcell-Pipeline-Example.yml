@@ -5,6 +5,13 @@ resources:
     branch: master
     uri: https://github.com/datianshi/StemcellCI
 
+- name: stemcell-builder
+  type: git
+  source:
+    branch: master
+    uri: git@github.com:DaxterM/bosh-windows-stemcell-builder.git
+    private_key: {{git_private_key}}
+
 - name: vmx-with-windows-update-version
   type: semver
   source:
@@ -52,6 +59,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci
+    - get: stemcell-builder
     - get: vmx-version
       resource: vmx-with-windows-update-version
   - task: add-updates
@@ -78,6 +86,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci
+    - get: stemcell-builder
     - get: version
       resource: stemcells-pre-release-candidate-version
     - get: vmx-version
@@ -109,6 +118,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci
+    - get: stemcell-builder
     - get: bosh-windows-stemcell
       resource: vsphere-stemcell-pre-release-candidate
       trigger: true
