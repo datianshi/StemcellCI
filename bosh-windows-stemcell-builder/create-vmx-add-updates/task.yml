@@ -24,3 +24,4 @@ params:
   OUTPUT_BUCKET:
   VMX_CACHE_DIR: "C:\\vmx-data"
   VERSION_DIR: ../version
+  ENDPOINT: 
