@@ -28,7 +28,7 @@ params:
   OUTPUT_BUCKET: "bosh-windows-stemcells-pre-release-candidate"
   VMX_CACHE_DIR: "C:\\vmx-data"
 
-  PRODUCT_KEY:
+  PRODUCT_KEY: 
   ORGANIZATION:
   OWNER:
 

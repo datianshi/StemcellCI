@@ -74,13 +74,14 @@ jobs:
       AWS_REGION: us-east-1
       INPUT_BUCKET: {{s3_windows_updates_bucket}}
       OUTPUT_BUCKET: {{s3_windows_updates_bucket}}
-      PRODUCT_KEY:  D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+      PRODUCT_KEY:  {{product_key}}
       OWNER: {{owner}}
       ORGANIZATION: {{organization}}
       OS_VERSION: windows2012R2
       NUM_VCPUS: {{num_vcpus}}
   - put: vmx-with-windows-update-version
-    params: {bump: major}
+    params:
+      bump: major
 - name: create-vsphere-stemcell
   serial: true
   plan:
@@ -104,7 +105,7 @@ jobs:
       AWS_REGION: us-east-1
       INPUT_BUCKET: {{s3_windows_updates_bucket}}
       OUTPUT_BUCKET: {{s3_stemcell_pre_release_candidate_bucket}}
-      PRODUCT_KEY:  D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+      PRODUCT_KEY:  {{product_key}}
       OWNER: {{owner}}
       ORGANIZATION: {{organization}}
       OS_VERSION: windows2012R2
