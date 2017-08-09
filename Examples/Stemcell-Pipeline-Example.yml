@@ -9,8 +9,8 @@ resources:
   type: git
   source:
     branch: master
-    uri: git@github.com:DaxterM/bosh-windows-stemcell-builder.git
-    private_key: {{git_private_key}}
+    uri: https://github.com/datianshi/bosh-windows-stemcell-builder
+    # private_key: {{git_private_key}}
 
 - name: vmx-with-windows-update-version
   type: semver
