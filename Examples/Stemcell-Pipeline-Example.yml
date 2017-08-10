@@ -12,6 +12,13 @@ resources:
     uri: https://github.com/datianshi/bosh-windows-stemcell-builder
     # private_key: {{git_private_key}}
 
+- name: sshd
+  type: github-release
+  source:
+    owner: PowerShell
+    repository: Win32-OpenSSH
+    access_token: {{git_access_token}}
+
 - name: vmx-with-windows-update-version
   type: semver
   source:
@@ -81,7 +88,7 @@ jobs:
       NUM_VCPUS: {{num_vcpus}}
   - put: vmx-with-windows-update-version
     params:
-      bump: major
+      bump: minor
 - name: create-vsphere-stemcell
   serial: true
   plan:
@@ -94,6 +101,9 @@ jobs:
       resource: vmx-with-windows-update-version
       passed: [create-vsphere-add-updates]
       trigger: true
+    - get: sshd
+      params:
+        globs: "OpenSSH-Win64.zip"
   - task: create-stemcell
     privileged: true
     file: ci/bosh-windows-stemcell-builder/create-vsphere-stemcell/task.yml
@@ -110,6 +120,7 @@ jobs:
       ORGANIZATION: {{organization}}
       OS_VERSION: windows2012R2
       NUM_VCPUS: {{num_vcpus}}
+      STEMCELL_DEPS_DIR: ../windows-stemcell-dependencies
   - put: stemcells-pre-release-candidate-version
     params: {bump: minor}
 
