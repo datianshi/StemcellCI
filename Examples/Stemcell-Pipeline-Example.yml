@@ -18,6 +18,7 @@ resources:
     owner: PowerShell
     repository: Win32-OpenSSH
     access_token: {{git_access_token}}
+    pre_release: true
 
 - name: vmx-with-windows-update-version
   type: semver
@@ -103,7 +104,8 @@ jobs:
       trigger: true
     - get: sshd
       params:
-        globs: "OpenSSH-Win64.zip"
+        globs:
+        - OpenSSH-Win64.zip
   - task: create-stemcell
     privileged: true
     file: ci/bosh-windows-stemcell-builder/create-vsphere-stemcell/task.yml
