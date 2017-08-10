@@ -6,7 +6,7 @@ inputs:
   - name: version
   - name: vmx-version
   - name: stemcell-builder
-  - name: sshd
+  # - name: sshd
 outputs:
 
 run:

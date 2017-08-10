@@ -102,10 +102,12 @@ jobs:
       resource: vmx-with-windows-update-version
       passed: [create-vsphere-add-updates]
       trigger: true
-    - get: sshd
-      params:
-        globs:
-        - OpenSSH-Win64.zip
+    # - get: sshd
+    #   version:
+    #     tag: v0.0.18.0
+    #   params:
+    #     globs:
+    #     - OpenSSH-Win64.zip
   - task: create-stemcell
     privileged: true
     file: ci/bosh-windows-stemcell-builder/create-vsphere-stemcell/task.yml
