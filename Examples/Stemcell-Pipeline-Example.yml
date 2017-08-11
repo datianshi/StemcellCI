@@ -12,13 +12,13 @@ resources:
     uri: https://github.com/datianshi/bosh-windows-stemcell-builder
     # private_key: {{git_private_key}}
 
-- name: sshd
-  type: github-release
-  source:
-    owner: PowerShell
-    repository: Win32-OpenSSH
-    access_token: {{git_access_token}}
-    pre_release: true
+# - name: sshd
+#   type: github-release
+#   source:
+#     owner: PowerShell
+#     repository: Win32-OpenSSH
+#     access_token: {{git_access_token}}
+#     pre_release: true
 
 - name: vmx-with-windows-update-version
   type: semver
